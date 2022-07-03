@@ -5,8 +5,10 @@ import { Layout } from "./components/Layout";
 import { Header } from "./components/Header";
 import { List } from "./components/List";
 import { Form } from "./components/Form";
+import { useSnackbar } from "notistack";
 
 function App() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [error, setError] = useState(null);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState("");
@@ -24,10 +26,10 @@ function App() {
     setTodos(newTodo);
   };
   const handleDelete = (todoId) => {
-    if (window.confirm("Are you sure?")) {
-      const updateTodos = todos.filter((item) => item.id !== todoId);
-      setTodos(updateTodos);
-    }
+    const updateTodos = todos.filter((item) => item.id !== todoId);
+    setTodos(updateTodos);
+
+    enqueueSnackbar("task deleted");
   };
   const handleSubmit = (e) => {
     e.preventDefault();
