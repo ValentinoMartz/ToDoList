@@ -8,7 +8,7 @@ import { Form } from "./components/Form";
 import { useSnackbar } from "notistack";
 
 function App() {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState(null);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState("");
