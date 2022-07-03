@@ -1,24 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+
+import "./App.css";
+import { Layout } from "./components/Layout";
+import { Header } from "./components/Header";
+import { List } from "./components/List";
+import { Form } from "./components/Form";
 
 function App() {
+  const [error, setError] = useState(null);
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState("");
+
+  const handleSave = (todoId) => {
+    const index = todos.findIndex((emp) => emp.id === todoId);
+    const newTodo = [...todos];
+
+    newTodo[index] = {
+      id: todos[index].id,
+      title: todos[index].title,
+      done: !todos[index].done,
+    };
+
+    setTodos(newTodo);
+  };
+  const handleDelete = (todoId) => {
+    if (window.confirm("Are you sure?")) {
+      const updateTodos = todos.filter((item) => item.id !== todoId);
+      setTodos(updateTodos);
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (todo.length < 5) {
+      setError("At least 5 words required");
+      return false;
+    }
+    setTodos([{ id: Date.now(), title: todo, done: false }, ...todos]); //ojo aca
+
+    setError(null);
+    setTodo("");
+  };
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos"));
+
+    if (storedTodos) setTodos(storedTodos);
+  }, []);
+
+  // saving the todos in browser storage to prevent loss of todos on refreshing tab
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header />
+      <Form
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+        submit={handleSubmit}
+        error={error}
+      />
+      <hr className="border-primary" />
+      <List done={handleSave} del={handleDelete} todos={todos} />
+    </Layout>
   );
 }
 
