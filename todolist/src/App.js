@@ -24,6 +24,11 @@ function App() {
     };
 
     setTodos(newTodo);
+    if (newTodo[index].done) {
+      enqueueSnackbar("Task mark as done");
+    } else {
+      enqueueSnackbar("Task mark as undone");
+    }
   };
   const handleDelete = (todoId) => {
     const updateTodos = todos.filter((item) => item.id !== todoId);
