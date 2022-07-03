@@ -39,8 +39,8 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (todo.length < 5) {
-      setError("At least 5 words required");
+    if (todo.length < 4) {
+      setError("At least 4 words required");
       return false;
     }
     setTodos([{ id: Date.now(), title: todo, done: false }, ...todos]); //ojo aca
