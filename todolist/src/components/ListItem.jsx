@@ -4,11 +4,12 @@ export const ListItem = ({ id, title, handleDelete, handleSave, done }) => {
   return (
     <li
       className={`list-group-item d-flex justify-content-between ${
-        done ? "bg-success" : ""
+        done ? "bg-primary" : ""
       }`}
     >
+      {" "}
+      {/* #78C2AD */}
       {done ? <del>{title}</del> : title}
-
       <div>
         <button
           className="btn btn-sm btn-danger m-2"
