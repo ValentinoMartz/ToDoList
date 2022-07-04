@@ -71,6 +71,19 @@ function App() {
       />
       <hr className="border-primary" />
       <List done={handleSave} del={handleDelete} todos={todos} />
+      <h6 className="text-primary text-center">
+        {" "}
+        <a
+          className="text-decoration-none hover-zoom"
+          href="https://valentinomartinez-portfolio.vercel.app"
+        >
+          © 2022 Valentino Martinez
+        </a>{" "}
+      </h6>
+      {/* <h6 className="text-primary text-center mr-10">
+        
+        <a href="https://www.linkedin.com/feed/">Linkdin</a>
+      </h6> */}
     </Layout>
   );
 }
